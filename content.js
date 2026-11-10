@@ -95,6 +95,7 @@ window.CONTENT = {
       learned: "What I learned",
       quotes: "What guests said",
       next: "Next case",
+      nextHint: "Slide the next tape into the player and press Play, or just open the case.",
     },
 
     caseApp: {
@@ -240,7 +241,7 @@ window.CONTENT = {
     },
 
     contact: {
-      title: "Shall we build something together?",
+      title: "Let’s create something together!",
       text: "Got a product idea or an open role in your product team? Write to me.",
       telegram: "Telegram",
       email: "Email",
@@ -314,6 +315,7 @@ window.CONTENT = {
       learned: "Чого я навчилася",
       quotes: "Що казали гості",
       next: "Наступний кейс",
+      nextHint: "Встав наступну касету в плеєр і натисни Play або просто відкрий кейс.",
     },
 
     caseApp: {
@@ -459,7 +461,7 @@ window.CONTENT = {
     },
 
     contact: {
-      title: "Створимо щось разом?",
+      title: "Створімо щось разом!",
       text: "Маєш ідею продукту або відкриту вакансію в продуктовій команді? Пиши мені.",
       telegram: "Telegram",
       email: "Email",

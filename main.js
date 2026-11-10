@@ -141,25 +141,25 @@
     return `<header class="top"><div class="wrap">
       <a class="logo" href="#">Yuliia C.</a>
       <nav aria-label="Main"><a href="#work">${t.nav.work}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a></nav>
-      <button class="ctrl" id="snd" aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}</button>
+      <button class="ctrl" data-snd aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}</button>
       <button class="ctrl" id="lang" aria-label="Language">${t.nav.lang}</button>
       <button class="ctrl" id="theme" aria-label="${t.nav.theme}">${dark ? I.sun : I.moon}</button>
       ${cv}
       <button class="ctrl burger" id="burger" aria-label="${t.nav.menu}" aria-expanded="false" aria-controls="menu">${I.burger}</button>
     </div></header>
-    <div class="menu-panel" id="menu" hidden><a href="#work">${t.nav.work}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a>${cv}</div>`;
+    <div class="menu-panel" id="menu" hidden><a href="#work">${t.nav.work}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a><button class="ctrl snd-m" data-snd data-label="${esc(t.nav.sound)}" aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}<span>${esc(t.nav.sound)}</span></button>${cv}</div>`;
   }
 
-  function deck(t) {
+  function deck(t, kind) {
     const d = t.work.deck;
-    return `<div class="deck" id="deck">
+    return `<div class="deck" data-deck="${kind}">
       <div class="deck-top"><span>STEREO CASSETTE DECK</span><span class="leds"><i></i><i></i></span></div>
-      <div class="door" id="door"><p class="slot-hint">${esc(d.drag)}</p></div>
-      <div class="display" id="disp">${esc(d.empty)}</div>
+      <div class="door" data-door><p class="slot-hint">${esc(d.drag)}</p></div>
+      <div class="display" data-disp>${esc(d.empty)}</div>
       <div class="keys">
-        <button class="key" id="kStop" type="button" disabled aria-label="${esc(d.stop)}">${I.stop}</button>
-        <button class="key play" id="kPlay" type="button" disabled>${I.play}${esc(d.play)}</button>
-        <button class="key" id="kEject" type="button" disabled aria-label="${esc(d.eject)}">${I.eject}</button>
+        <button class="key" data-k="stop" type="button" disabled aria-label="${esc(d.stop)}">${I.stop}</button>
+        <button class="key play" data-k="play" type="button" disabled>${I.play}${esc(d.play)}</button>
+        <button class="key" data-k="eject" type="button" disabled aria-label="${esc(d.eject)}">${I.eject}</button>
       </div>
     </div>`;
   }
@@ -182,9 +182,8 @@
 
     <section class="section" id="work"><div class="wrap">
       <div class="sec-head"><div><h2>${esc(t.work.title)}</h2><p class="period">${esc(t.work.period)}</p></div><span class="hand">${esc(t.work.note)}</span></div>
-      <div class="cases-layout"><div class="deck-col">${deck(t)}</div><div class="tapes">${CASES.map((id) => tapeCard(id, t)).join("")}</div></div>
+      <div class="cases-layout" data-layout><div class="deck-col">${deck(t, "home")}</div><div class="tapes">${CASES.map((id) => tapeCard(id, t)).join("")}</div></div>
     </div></section>
-    <div class="mini" id="mini" role="region" aria-label="Player"><span class="t" id="miniT"></span><button class="key play" id="mPlay" type="button">${I.play}${esc(t.work.deck.play)}</button><button class="x" id="mX" type="button" aria-label="${esc(t.work.deck.eject)}">✕</button></div>
 
     <section class="section" id="more"><div class="wrap">
       <div class="sec-head"><h2>${esc(m.title)}</h2><span class="hand">${esc(m.note)}</span></div>
@@ -242,7 +241,8 @@
   }
   function nextCase(id, t) {
     const n = CASES[(CASES.indexOf(id) + 1) % CASES.length];
-    return `<div class="wrap next-wrap"><h2>${esc(t.caseLabels.next)}</h2>${tapeCard(n, t)}</div>`;
+    return `<div class="wrap next-wrap"><h2>${esc(t.caseLabels.next)}</h2><p class="next-hint">${esc(t.caseLabels.nextHint)}</p>
+      <div class="next-layout" data-layout>${deck(t, "next")}${tapeCard(n, t)}</div></div>`;
   }
   const steps = (arr) => `<ol class="steps">${arr.map((s) => `<li><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></li>`).join("")}</ol>`;
   const quotes = (arr) => `<div class="quotes">${arr.map((q) => `<p class="quote">${Q(esc(q))}</p>`).join("")}</div>`;
@@ -256,9 +256,9 @@
       ${block(L.role, `<p>${esc(c.role)}</p>`)}
       <section class="block"><h2>${esc(L.process)}</h2><div>${steps(c.steps)}</div></section>
       <section class="block"><h2>${esc(L.quotes)}</h2><div>${quotes(c.quotes)}</div></section>
-      <section class="free"><h2 class="sub-title">${esc(L.solution)}</h2>
+      <section class="free flow-sec"><h2 class="sub-title">${esc(L.solution)}</h2>
         <div class="annotated">${notesCol(c.notes.slice(0, 2), "left")}
-          <div class="phone-col">${phone(scr, "flow")}<div class="flow-ui"><div class="flow-nav"><button class="key nav-key" id="fPrev" type="button" aria-label="Previous screen">◀◀</button><div class="flow-dots" role="group" aria-label="Screens">${S.appFlow.map((_, i) => `<button aria-label="${i + 1}" aria-current="${i === 0}"></button>`).join("")}</div><button class="key nav-key" id="fNext" type="button" aria-label="Next screen">▶▶</button></div><span class="hand flow-hint">${esc(c.flowHint)}</span></div></div>
+          <div class="phone-col">${phone(scr, "flow")}<div class="flow-ui"><div class="flow-nav"><button class="key nav-key" data-fprev type="button" aria-label="Previous screen">◀◀</button><div class="flow-dots" role="group" aria-label="Screens">${S.appFlow.map((_, i) => `<button aria-label="${i + 1}" aria-current="${i === 0}"></button>`).join("")}</div><button class="key nav-key" data-fnext type="button" aria-label="Next screen">▶▶</button></div><span class="hand flow-hint">${esc(c.flowHint)}</span></div></div>
           ${notesCol(c.notes.slice(2), "right")}</div>
         <ul class="notes-list">${c.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
       </section>
@@ -277,15 +277,15 @@
     return caseHero("redesign", t) + `<div class="wrap">
       ${block(L.context, `<p>${esc(c.context)}</p><p>${esc(c.goal)}</p>`)}
       ${block(L.role, `<p>${esc(c.role)}</p>`)}
-      <section class="free"><div class="compare-tabs" role="group">${Object.keys(c.pages).map((p, i) => `<button data-p="${p}" aria-pressed="${i === 0}">${esc(c.pages[p])}</button>`).join("")}</div>
-        <div class="compare" id="cmp"><img id="cmpB" src="${IMG("rd-home-b")}" alt="${esc(c.versionB)}"><div class="over"><img id="cmpA" src="${IMG("rd-home-a")}" alt="${esc(c.versionA)}"></div>
+      <section class="free compare-sec"><div class="compare-tabs" role="group">${Object.keys(c.pages).map((p, i) => `<button data-p="${p}" aria-pressed="${i === 0}">${esc(c.pages[p])}</button>`).join("")}</div>
+        <div class="compare" id="cmp" style="--ar:1.33"><img id="cmpB" src="${IMG("rd-home-b")}" alt="${esc(c.versionB)}"><div class="over"><img id="cmpA" src="${IMG("rd-home-a")}" alt="${esc(c.versionA)}"></div>
         <span class="handle"></span><span class="tag a">A</span><span class="tag b">B</span><input type="range" min="0" max="100" value="50" aria-label="${esc(c.compareHint)}"></div>
         <p class="hand compare-hint">${esc(c.compareHint)}</p></section>
       ${block(L.process, `<p>${esc(c.research)}</p>`)}
       <section class="block"><h2>${esc(c.scoresTitle)}</h2><div class="scores">${scores}</div></section>
       <section class="block"><h2>${esc(L.quotes)}</h2><div>${quotes(c.quotes)}</div></section>
       <section class="free"><p style="max-width:44em;font-size:18px">${esc(c.next)}</p>
-        <div class="final" style="margin-top:56px"><span class="hand">${esc(c.finalNote)}</span><div class="browser"><div class="bar"><i></i><i></i><i></i></div><div class="scroller"><img src="${IMG("rd-final-home")}" alt="${esc(c.finalNote)}" loading="lazy"></div></div></div></section>
+        <div class="final"><span class="hand">${esc(c.finalNote)}</span><div class="browser"><div class="bar"><i></i><i></i><i></i></div><div class="scroller"><img src="${IMG("rd-final-home")}" alt="${esc(c.finalNote)}" loading="lazy"></div></div></div></section>
       ${block(L.learned, `<p>${esc(c.learned)}</p>`)}
     </div>` + nextCase("redesign", t);
   }
@@ -350,8 +350,8 @@
       if (paused) { clearTimeout(flowT); cancelAnimationFrame(raf); } else show(i);
     });
     dots.forEach((d, k) => d.addEventListener("click", () => show(k)));
-    document.getElementById("fPrev").onclick = () => show((i - 1 + scs.length) % scs.length);
-    document.getElementById("fNext").onclick = () => show((i + 1) % scs.length);
+    document.querySelector("[data-fprev]").onclick = () => show((i - 1 + scs.length) % scs.length);
+    document.querySelector("[data-fnext]").onclick = () => show((i + 1) % scs.length);
     if (reduce()) { paused = true; ph.classList.add("paused"); }
     show(0);
   }
@@ -362,24 +362,81 @@
     input.addEventListener("input", () => cmp.style.setProperty("--pos", input.value + "%"));
     document.querySelectorAll(".compare-tabs button").forEach((b) => b.addEventListener("click", () => {
       document.querySelectorAll(".compare-tabs button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      const imgB = document.getElementById("cmpB");
       document.getElementById("cmpA").src = IMG(`rd-${b.dataset.p}-a`);
-      document.getElementById("cmpB").src = IMG(`rd-${b.dataset.p}-b`);
+      imgB.onload = () => cmp.style.setProperty("--ar", (imgB.naturalWidth / imgB.naturalHeight).toFixed(3));
+      imgB.src = IMG(`rd-${b.dataset.p}-b`);
     }));
   }
 
-  /* ---------- магнітофон ---------- */
-  let loaded = null;
-  function startDeck(t) {
-    const deckEl = document.getElementById("deck");
-    const d = t.work.deck;
-    document.querySelectorAll(".tape").forEach((card) => {
-      const id = card.dataset.id, art = card.querySelector(".tape-art");
-      if (!art) return;
+  /* ---------- повільний автоскрол фінальної ітерації ---------- */
+  let scrollerRaf = null;
+  function startScroller() {
+    cancelAnimationFrame(scrollerRaf);
+    const el = document.querySelector(".scroller"); if (!el) return;
+    let pos = 0, dir = 1, hold = false, last = null, wait = 1.2, timer = null, visible = false;
+    const SPEED = 34; /* px за секунду: повільно */
+    const resume = (ms) => { clearTimeout(timer); timer = setTimeout(() => { hold = false; pos = el.scrollTop; last = null; }, ms); };
+    el.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { hold = true; clearTimeout(timer); } });
+    el.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") resume(600); });
+    el.addEventListener("wheel", () => { hold = true; resume(el.matches(":hover") ? 1e9 : 2000); }, { passive: true });
+    el.addEventListener("touchstart", () => { hold = true; clearTimeout(timer); }, { passive: true });
+    el.addEventListener("touchend", () => resume(3500), { passive: true });
+    el.addEventListener("keydown", () => { hold = true; resume(3000); });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(el);
+    const step = (ts) => {
+      scrollerRaf = requestAnimationFrame(step);
+      if (last === null) last = ts;
+      const dt = Math.min((ts - last) / 1000, 0.1); last = ts;
+      if (hold || !visible || reduce()) return;
+      const max = el.scrollHeight - el.clientHeight; if (max <= 0) return;
+      if (wait > 0) { wait -= dt; return; }
+      pos += dir * SPEED * dt;
+      if (pos >= max) { pos = max; dir = -1; wait = 1.5; } else if (pos <= 0) { pos = 0; dir = 1; wait = 1.5; }
+      el.scrollTop = pos;
+    };
+    scrollerRaf = requestAnimationFrame(step);
+  }
+
+  /* ---------- магнітофон (головна і кінець кожного кейсу) ---------- */
+  let homeLoaded = null;
+  function startDecks(t) { document.querySelectorAll("[data-deck]").forEach((root) => initDeck(root, t)); }
+  function initDeck(root, t) {
+    const layout = root.closest("[data-layout]"), d = t.work.deck, isHome = root.dataset.deck === "home";
+    const door = root.querySelector("[data-door]"), disp = root.querySelector("[data-disp]");
+    const kPlay = root.querySelector('[data-k="play"]'), kStop = root.querySelector('[data-k="stop"]'), kEject = root.querySelector('[data-k="eject"]');
+    const tapes = [...layout.querySelectorAll(".tape")];
+    let loaded = null, go = null;
+    const keys = (on) => [kPlay, kStop, kEject].forEach((k) => (k.disabled = !on));
+    function load(id) {
+      loaded = id; if (isHome) homeLoaded = id;
+      door.innerHTML = cassette(id, t.cases[id].title);
+      disp.textContent = "▶ " + d.loaded + ": " + t.cases[id].title;
+      root.classList.add("has"); keys(true);
+      tapes.forEach((c) => c.classList.toggle("loaded", c.dataset.id === id));
+    }
+    function unload() {
+      clearTimeout(go); stopSound(); loaded = null; if (isHome) homeLoaded = null;
+      door.classList.remove("spin"); door.innerHTML = `<p class="slot-hint">${esc(d.drag)}</p>`;
+      disp.textContent = d.empty; root.classList.remove("has", "playing"); keys(false);
+      kPlay.classList.remove("down"); tapes.forEach((c) => c.classList.remove("loaded"));
+    }
+    function play() {
+      if (!loaded) return;
+      const id = loaded;
+      root.classList.add("playing"); door.classList.add("spin"); kPlay.classList.add("down");
+      disp.textContent = "▶▶ " + t.cases[id].title;
+      lastSound = 0; playSound(id);
+      clearTimeout(go); go = setTimeout(() => { location.hash = id; }, reduce() ? 0 : 1500);
+    }
+    kPlay.onclick = play; kEject.onclick = unload;
+    kStop.onclick = () => { clearTimeout(go); stopSound(); root.classList.remove("playing"); door.classList.remove("spin"); kPlay.classList.remove("down"); if (loaded) disp.textContent = "■ " + t.cases[loaded].title; };
+    tapes.forEach((card) => {
+      const id = card.dataset.id, art = card.querySelector(".tape-art"); if (!art) return;
       let start = null, ghost = null, dragged = false;
       art.addEventListener("pointerdown", (e) => {
         if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
-        start = { x: e.clientX, y: e.clientY }; dragged = false;
-        art.setPointerCapture(e.pointerId);
+        start = { x: e.clientX, y: e.clientY }; dragged = false; art.setPointerCapture(e.pointerId);
       });
       art.addEventListener("pointermove", (e) => {
         if (!start) return;
@@ -388,56 +445,17 @@
         }
         if (ghost) {
           ghost.style.left = e.clientX + "px"; ghost.style.top = e.clientY + "px";
-          if (deckEl) { const r = deckEl.getBoundingClientRect(); deckEl.classList.toggle("over", e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom); }
+          const r = root.getBoundingClientRect(); root.classList.toggle("over", e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom);
         }
       });
-      const end = (e) => {
-        if (ghost) {
-          const over = deckEl && deckEl.classList.contains("over");
-          ghost.remove(); ghost = null; deckEl && deckEl.classList.remove("over");
-          if (over) load(id, t);
-        }
+      const end = () => {
+        if (ghost) { const over = root.classList.contains("over"); ghost.remove(); ghost = null; root.classList.remove("over"); if (over) load(id); }
         start = null;
       };
       art.addEventListener("pointerup", end); art.addEventListener("pointercancel", end);
-      art.addEventListener("click", () => { if (dragged) { dragged = false; return; } load(id, t); });
+      art.addEventListener("click", () => { if (dragged) { dragged = false; return; } load(id); });
     });
-    const kPlay = document.getElementById("kPlay"), kStop = document.getElementById("kStop"), kEject = document.getElementById("kEject");
-    if (!kPlay) return;
-    kPlay.onclick = () => play(t); document.getElementById("mPlay").onclick = () => play(t);
-    kStop.onclick = () => { stopSound(); deckEl.classList.remove("playing"); document.getElementById("door").classList.remove("spin"); document.getElementById("disp").textContent = "■ " + t.cases[loaded].title; };
-    const ej = () => unload(t); kEject.onclick = ej; document.getElementById("mX").onclick = ej;
-    if (loaded) load(loaded, t, true);
-  }
-  function load(id, t, silent) {
-    loaded = id;
-    const d = t.work.deck;
-    document.getElementById("door").innerHTML = cassette(id, t.cases[id].title);
-    document.getElementById("disp").textContent = "▶ " + d.loaded + ": " + t.cases[id].title;
-    document.getElementById("deck").classList.add("has");
-    ["kPlay", "kStop", "kEject"].forEach((k) => (document.getElementById(k).disabled = false));
-    document.querySelectorAll(".tape").forEach((c) => c.classList.toggle("loaded", c.dataset.id === id));
-    document.getElementById("miniT").innerHTML = `${esc(t.cases[id].title)}<small>${esc(d.loaded)}</small>`;
-    document.getElementById("mini").classList.add("show");
-  }
-  function unload(t) {
-    loaded = null; stopSound();
-    document.getElementById("door").innerHTML = `<p class="slot-hint">${esc(t.work.deck.drag)}</p>`;
-    document.getElementById("disp").textContent = t.work.deck.empty;
-    const deckEl = document.getElementById("deck"); deckEl.classList.remove("has", "playing");
-    ["kPlay", "kStop", "kEject"].forEach((k) => (document.getElementById(k).disabled = true));
-    document.querySelectorAll(".tape").forEach((c) => c.classList.remove("loaded"));
-    document.getElementById("mini").classList.remove("show");
-  }
-  function play(t) {
-    if (!loaded) return;
-    const id = loaded;
-    document.getElementById("deck").classList.add("playing");
-    document.getElementById("door").classList.add("spin");
-    document.getElementById("kPlay").classList.add("down");
-    document.getElementById("disp").textContent = "▶▶ " + t.cases[id].title;
-    lastSound = 0; playSound(id);
-    setTimeout(() => { location.hash = id; }, reduce() ? 0 : 1500);
+    if (isHome && homeLoaded) load(homeLoaded);
   }
 
   /* ---------- рендер ---------- */
@@ -461,11 +479,15 @@
       const r = document.documentElement, cur = r.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       r.dataset.theme = cur === "dark" ? "light" : "dark"; store.set("theme", r.dataset.theme); $("theme").innerHTML = r.dataset.theme === "dark" ? I.sun : I.moon;
     };
-    $("snd").onclick = () => { muted = !muted; store.set("muted", muted ? "1" : "0"); $("snd").innerHTML = muted ? I.mute : I.sound; $("snd").setAttribute("aria-pressed", !muted); if (muted) stopSound(); };
+    const sndBtns = [...document.querySelectorAll("[data-snd]")];
+    sndBtns.forEach((btn) => (btn.onclick = () => {
+      muted = !muted; store.set("muted", muted ? "1" : "0"); if (muted) stopSound();
+      sndBtns.forEach((x) => { x.innerHTML = (muted ? I.mute : I.sound) + (x.dataset.label ? `<span>${x.dataset.label}</span>` : ""); x.setAttribute("aria-pressed", !muted); });
+    }));
     const menu = $("menu"), burger = $("burger");
     burger.onclick = () => { const open = menu.hidden; menu.hidden = !open; burger.setAttribute("aria-expanded", open); burger.innerHTML = open ? I.close : I.burger; };
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { menu.hidden = true; burger.setAttribute("aria-expanded", false); burger.innerHTML = I.burger; }));
-    startFlow(); startCompare(); startDeck(t);
+    startFlow(); startCompare(); startScroller(); startDecks(t);
   }
 
   let lastView = null;
