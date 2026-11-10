@@ -226,31 +226,6 @@ p + p { margin-top: var(--s2); }
 .result { font-size: 22px; font-weight: 500; }
 .note-small { font-size: 15px; color: var(--muted); margin-top: var(--s2); }
 
-/* Основний флоу */
-.annotated { display: grid; grid-template-columns: 1fr minmax(260px, 340px) 1fr; gap: var(--s4); align-items: center; }
-.annotated .notes { display: grid; gap: var(--s8); margin: 0; padding: 0; list-style: none; }
-.annotated .notes.left { text-align: right; }
-.annotated .n { font-family: var(--f-hand); font-size: 28px; color: var(--pen); line-height: 1.05; }
-.annotated .n svg { width: 72px; height: 26px; display: block; margin-top: var(--s1); }
-.annotated .notes.left .n svg { margin-left: auto; }
-.annotated .notes.right .n svg { transform: scaleX(-1); }
-.notes-list { display: none; }
-.flow { cursor: pointer; }
-.flow .sc { position: absolute; inset: 0; overflow-y: hidden; opacity: 0; transition: opacity .5s; scrollbar-width: none; }
-.flow .sc::-webkit-scrollbar { display: none; }
-.flow .sc.on { opacity: 1; z-index: 1; }
-.flow.paused .sc.on { overflow-y: auto; }
-.flow-ui { display: grid; justify-items: center; gap: var(--s1); margin-top: var(--s2); }
-.flow-dots { display: flex; gap: var(--s1); flex-wrap: wrap; justify-content: center; }
-.flow-dots button { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink); background: transparent; padding: 0; cursor: pointer; }
-.flow-dots button[aria-current="true"] { background: var(--ink); }
-.flow-hint { font-size: 22px; }
-@media (max-width: 1024px) {
-  .annotated { grid-template-columns: 1fr; justify-items: center; }
-  .annotated .notes { display: none; }
-  .annotated .phone-col { width: 100%; max-width: 380px; }
-  .notes-list { display: grid; gap: var(--s1); max-width: 520px; margin: var(--s4) auto 0; padding-left: var(--s3); font-size: 18px; }
-}
 .phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); align-items: start; }
 .phones figure { margin: 0; }
 .phones figcaption { margin-top: var(--s2); font-size: 26px; text-align: center; }
@@ -425,12 +400,6 @@ p + p { margin-top: var(--s2); }
 .compare-tabs { justify-content: center; }
 .compare-hint { text-align: center; }
 .entries { max-width: min(100%, calc((var(--vh) - 200px) * 2.2)); margin-inline: auto; }
-.flow-nav { display: flex; align-items: center; gap: var(--s2); }
-.nav-key { height: 40px; min-width: 52px; padding: 0 var(--s1); font-size: 13px; letter-spacing: -2px; box-shadow: 0 4px 0 #0E0F1C; }
-.flow-ui { width: max-content; max-width: 92vw; margin-inline: auto; justify-self: center; }
-.annotated .phone-col { display: grid; justify-items: center; }
-.flow-dots { flex-wrap: nowrap; gap: 6px; }
-.flow-hint { text-align: center; }
 
 /* ===== Адаптивність, відступи і «усе в один екран» ===== */
 @supports (height: 100svh) { :root { --vh: 100svh; } }
@@ -438,29 +407,6 @@ html { overflow-x: hidden; }
 .ctrl span { white-space: nowrap; }
 .menu-panel .snd-m { display: none; }
 .menu-panel .snd-m svg { width: 18px; height: 18px; }
-
-/* основний флоу застосунку */
-.flow-sec { padding: var(--s3) 0 var(--s4); }
-.flow-sec .sub-title { margin-bottom: var(--s2); }
-.annotated { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--s5); }
-.annotated .phone-col { width: auto; max-width: none; justify-self: center; display: grid; justify-items: center; }
-.annotated .n { font-size: 24px; }
-.phone.flow { width: auto; aspect-ratio: 9 / 19.5; height: min(clamp(340px, calc(var(--vh) - 300px), 740px), calc((100vw - 2 * var(--gutter)) * 2.1667)); }
-.flow-ui { display: grid; justify-items: center; gap: var(--s1); margin-top: var(--s2); width: auto; max-width: 100%; }
-.flow-nav { display: flex; align-items: center; gap: var(--s2); max-width: 100%; }
-.flow-hint { font-size: 22px; text-align: center; }
-@media (max-width: 1024px) {
-  .annotated { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0; }
-  .annotated .notes { display: none; }
-  .notes-list { display: grid; margin: var(--s3) auto 0; max-width: 520px; }
-}
-@media (max-width: 480px) {
-  .flow-nav { gap: var(--s1); }
-  .nav-key { min-width: 44px; height: 40px; }
-  .flow-dots { gap: 4px; }
-  .flow-dots button { width: 8px; height: 8px; }
-  .flow-hint { font-size: 20px; }
-}
 
 /* порівняння версій: більше, але в один екран */
 .compare-sec { padding: var(--s3) 0 var(--s4); }
@@ -534,3 +480,54 @@ html { overflow-x: hidden; }
 @media (max-width: 420px) { .hero h1 { font-size: 34px; } .contact h2 { font-size: 34px; } }
 @media (max-width: 860px) { .hero-note { white-space: normal; max-width: 100%; font-size: 28px; } }
 @media (max-width: 420px) { .hero-note { font-size: 24px; } }
+
+/* ===== Основний флоу: великий телефон, стрілки по боках, підказка під заголовком ===== */
+.flow-sec { --btn: 52px; --gap-btn: 16px; padding: var(--s3) 0 var(--s4); }
+.annotated { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--s5); align-items: stretch; }
+.col { position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.col-l .notes { text-align: right; }
+.flow-head { position: absolute; top: 0; left: 0; right: 0; text-align: left; }
+.flow-head .sub-title { font-size: 22px; }
+.flow-hint { font-size: 24px; margin-top: var(--s1); }
+.h-touch { display: none; }
+.notes { display: grid; gap: var(--s8); margin: 0; padding: 0; list-style: none; }
+.notes.left { text-align: right; }
+.notes .n { font-family: var(--f-hand); font-size: 24px; color: var(--pen); line-height: 1.1; }
+.notes .n svg { width: 72px; height: 26px; display: block; margin-top: var(--s1); }
+.notes.left .n svg { margin-left: auto; }
+.notes.right .n svg { transform: scaleX(-1); }
+.notes-list { display: none; }
+.stage { display: flex; align-items: center; justify-content: center; gap: var(--gap-btn); max-width: 100%; }
+.stage-btn { flex: none; width: var(--btn); height: var(--btn); min-width: 0; padding: 0; }
+.stage-btn svg { width: 22px; height: 22px; }
+.phone.flow { --ph: min(clamp(380px, calc(var(--vh) - 128px), 820px), calc((100vw - 2 * var(--gutter) - 2 * var(--btn) - 2 * var(--gap-btn)) * 2.1667)); flex: none; aspect-ratio: auto; height: var(--ph); width: calc(var(--ph) * 0.4615); cursor: pointer; touch-action: pan-y; }
+.flow .sc { position: absolute; inset: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity .5s, visibility 0s .5s; scrollbar-width: none; }
+.flow .sc::-webkit-scrollbar { display: none; }
+.flow .sc.on { opacity: 1; visibility: visible; z-index: 1; transition: opacity .5s; }
+.flow.paused .sc.on { overflow-y: auto; }
+@media (max-width: 1024px) {
+  .flow-sec { padding-top: var(--s2); }
+  .annotated { grid-template-columns: minmax(0, 1fr); gap: var(--s2); justify-items: center; }
+  .col-r, .col-l .notes { display: none; }
+  .col-l { width: 100%; }
+  .flow-head { position: static; }
+  .phone.flow { --ph: min(clamp(340px, calc(var(--vh) - 210px), 820px), calc((100vw - 2 * var(--gutter) - 2 * var(--btn) - 2 * var(--gap-btn)) * 2.1667)); }
+  .notes-list { display: grid; gap: var(--s1); margin: var(--s3) auto 0; max-width: 520px; padding-left: var(--s3); font-size: 18px; }
+}
+@media (max-width: 520px) { .flow-sec { --btn: 44px; --gap-btn: 4px; } .stage-btn svg { width: 20px; height: 20px; } .flow-hint { font-size: 22px; } }
+@media (hover: none) { .h-mouse { display: none; } .h-touch { display: inline; } .phone.flow { cursor: default; } }
+
+/* плавний скрол на телефонах: без зерна-накладки і без розмиття */
+@media (hover: none), (max-width: 900px) {
+  body::after { display: none; }
+  body { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E"), radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 180px 180px, 24px 24px; }
+  .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: color-mix(in srgb, var(--paper) 96%, transparent); }
+  body::before { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+.flow img { -webkit-user-drag: none; user-select: none; pointer-events: none; }
+
+.phone .scr > img.fill { height: 100%; object-fit: contain; object-position: top center; }
+.app-shots figure { margin: 0; }
+.app-shots figcaption { margin-top: var(--s2); font-size: 24px; text-align: center; }
+.phone.pad .scr { padding-top: 32px; background: #fff; }
+.phone.pad .scr > img.fill { height: 100%; }

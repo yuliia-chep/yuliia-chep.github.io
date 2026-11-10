@@ -1,9 +1,11 @@
 (function () {
   const S = window.SITE;
   const app = document.getElementById("app");
+  if (window.SITE_VERSION) console.info("Portfolio build " + window.SITE_VERSION);
   const CASES = ["app", "redesign", "reorder", "favorites"];
-  const IMG = (n) => (window.ASSETS && window.ASSETS[n + ".webp"]) || `assets/${n}.webp`;
-  const FILE = (f) => (window.ASSETS && window.ASSETS[f]) || `assets/${f}`;
+  const VQ = window.SITE_VERSION ? "?v=" + window.SITE_VERSION : "";
+  const IMG = (n) => (window.ASSETS && window.ASSETS[n + ".webp"]) || `assets/${n}.webp${VQ}`;
+  const FILE = (f) => (window.ASSETS && window.ASSETS[f]) || `assets/${f}${VQ}`;
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
@@ -29,6 +31,8 @@
     play: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>`,
     stop: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>`,
     eject: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 5l8 9H4z"/><rect x="4" y="16" width="16" height="3" rx="1"/></svg>`,
+    prev: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 5.5v13L3 12zM21 5.5v13L13 12z"/></svg>`,
+    next: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 5.5v13l8-6.5zM3 5.5v13L11 12z"/></svg>`,
     loop: `<svg viewBox="0 0 32 32" fill="none" stroke="var(--pen)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14a10 10 0 0 1 17-6l3 3M26 18a10 10 0 0 1-17 6l-3-3"/><path d="M26 5v6h-6M6 27v-6h6"/></svg>`,
     heart: `<svg viewBox="0 0 56 56" fill="none" stroke="#17192E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M28 47 C 11 36, 6 26, 9 17 C 12 9, 23 7, 28 16 C 33 7, 44 9, 47 17 C 50 26, 45 36, 28 47 Z" fill="#FF6B9A"/></svg>`,
     chart: `<svg viewBox="0 0 56 56" fill="none" stroke="#17192E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 47 H49"/><rect x="11" y="30" width="8" height="17" fill="#2446F0"/><rect x="24" y="20" width="8" height="27" fill="#2446F0"/><rect x="37" y="25" width="8" height="22" fill="#2446F0"/><path d="M9 18 C 20 12, 30 16, 47 7"/></svg>`,
@@ -229,8 +233,8 @@
 
   /* ---------- кейси ---------- */
   function bandVisual(id) {
-    const v = { app: "app-01-home", reorder: "re-01-empty-cart", favorites: "fav-01-my-lists" }[id];
-    if (v) return `<div class="band-visual" aria-hidden="true">${phone(`<img src="${IMG(v)}" alt="">`)}</div>`;
+    const v = { app: "app-01-home", reorder: "re-m-01-empty-cart", favorites: "fav-01-my-lists" }[id];
+    if (v) return `<div class="band-visual" aria-hidden="true">${phone(`<img class="fill" src="${IMG(v)}" alt="">`, v.startsWith("re-m-") ? "pad" : "")}</div>`;
     return `<div class="band-visual wide" aria-hidden="true">${browser("rd-home-b", "")}</div>`;
   }
   function caseHero(id, t) {
@@ -256,10 +260,20 @@
       ${block(L.role, `<p>${esc(c.role)}</p>`)}
       <section class="block"><h2>${esc(L.process)}</h2><div>${steps(c.steps)}</div></section>
       <section class="block"><h2>${esc(L.quotes)}</h2><div>${quotes(c.quotes)}</div></section>
-      <section class="free flow-sec"><h2 class="sub-title">${esc(L.solution)}</h2>
-        <div class="annotated">${notesCol(c.notes.slice(0, 2), "left")}
-          <div class="phone-col">${phone(scr, "flow")}<div class="flow-ui"><div class="flow-nav"><button class="key nav-key" data-fprev type="button" aria-label="Previous screen">◀◀</button><div class="flow-dots" role="group" aria-label="Screens">${S.appFlow.map((_, i) => `<button aria-label="${i + 1}" aria-current="${i === 0}"></button>`).join("")}</div><button class="key nav-key" data-fnext type="button" aria-label="Next screen">▶▶</button></div><span class="hand flow-hint">${esc(c.flowHint)}</span></div></div>
-          ${notesCol(c.notes.slice(2), "right")}</div>
+      <section class="free flow-sec">
+        <div class="annotated">
+          <div class="col col-l">
+            <div class="flow-head"><h2 class="sub-title">${esc(L.solution)}</h2><p class="hand flow-hint"><span class="h-mouse">${esc(c.flowHint)}</span><span class="h-touch">${esc(c.flowHintTouch)}</span></p></div>
+            ${notesCol(c.notes.slice(0, 2), "left")}
+          </div>
+          <div class="stage">
+            <button class="key stage-btn" data-fprev type="button" aria-label="Previous screen">${I.prev}</button>
+            ${phone(scr, "flow")}
+            <button class="key stage-btn" data-fnext type="button" aria-label="Next screen">${I.next}</button>
+          </div>
+          <div class="col col-r">${notesCol(c.notes.slice(2), "right")}</div>
+        </div>
+        <span class="visually-hidden" aria-live="polite" data-fcount></span>
         <ul class="notes-list">${c.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
       </section>
       ${block(L.result, `<p class="result">${esc(c.result)}</p>`)}
@@ -297,7 +311,7 @@
       ${block(L.role, `<p>${esc(c.role)}</p>`)}
       <section class="free"><h2 class="sub-title">${esc(L.solution)}</h2>
         <div class="entries">${c.entries.map((e) => `<figure>${browser(e.img, e.t)}<figcaption><h3>${esc(e.t)}</h3><p>${esc(e.d)}</p></figcaption></figure>`).join("")}</div>
-        <div class="app-shots"><div>${phone(`<img src="${IMG("re-01-empty-cart")}" alt="" loading="lazy">`)}</div><div>${phone(`<img src="${IMG("re-02-order")}" alt="" loading="lazy">`)}</div></div></section>
+        <div class="app-shots">${["re-m-01-empty-cart", "re-m-02-unavailable"].map((s, i) => `<figure>${phone(`<img class="fill" src="${IMG(s)}" alt="${esc(c.mobileShots[i])}" loading="lazy">`, "pad")}<figcaption class="hand">${esc(c.mobileShots[i])}</figcaption></figure>`).join("")}</div></section>
       <section class="block"><h2>${esc(c.iterTitle)}</h2><div>${steps(c.iter)}</div></section>
       ${block(L.result, `<p class="result">${esc(c.result)}</p><p class="note-small">${esc(c.resultNote)}</p>`)}
       ${block(L.learned, `<p>${esc(c.learned)}</p>`)}
@@ -323,36 +337,53 @@
   function startFlow() {
     clearTimeout(flowT); cancelAnimationFrame(raf);
     const ph = document.querySelector(".flow"); if (!ph) return;
-    const scs = [...ph.querySelectorAll(".sc")], dots = [...document.querySelectorAll(".flow-dots button")];
-    let i = 0, paused = false;
+    const scs = [...ph.querySelectorAll(".sc")], count = document.querySelector("[data-fcount]");
+    const touch = matchMedia("(hover: none)").matches;
+    let i = 0, paused = false, auto = !reduce(), visible = false, pageScrolling = false, st = null;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(ph);
+    window.addEventListener("scroll", () => { pageScrolling = true; clearTimeout(st); st = setTimeout(() => { pageScrolling = false; }, 160); }, { passive: true });
+    const schedule = (ms, fn) => { clearTimeout(flowT); flowT = setTimeout(() => (visible && !pageScrolling ? fn() : schedule(400, fn)), ms); };
     const scrollLong = (el) => {
-      el.scrollTop = 0; let last = null;
+      el.scrollTop = 0; let last = null, pos = 0;
       const step = (ts) => {
-        if (paused) return;
-        if (last === null) last = ts;
-        const dt = (ts - last) / 1000; last = ts;
-        el.scrollTop += 70 * dt; /* повільний скрол, px за секунду */
-        if (el.scrollTop + el.clientHeight >= el.scrollHeight - 2) { flowT = setTimeout(next, 1500); return; }
+        if (el.dataset.stop) return;
         raf = requestAnimationFrame(step);
+        if (last === null) last = ts;
+        const dt = Math.min((ts - last) / 1000, 0.1); last = ts;
+        if (paused || !visible || pageScrolling) return;
+        pos += 60 * dt; /* повільно, px за секунду; зупиняється під час скролу сторінки */
+        el.scrollTop = pos;
+        if (pos + el.clientHeight >= el.scrollHeight - 2) { cancelAnimationFrame(raf); if (auto) schedule(1500, next); }
       };
-      flowT = setTimeout(() => { raf = requestAnimationFrame(step); }, 1200);
+      flowT = setTimeout(() => { delete el.dataset.stop; raf = requestAnimationFrame(step); }, 1200);
     };
     const show = (n) => {
       clearTimeout(flowT); cancelAnimationFrame(raf); i = n;
-      scs.forEach((s, k) => s.classList.toggle("on", k === n));
-      dots.forEach((d, k) => d.setAttribute("aria-current", k === n));
-      if (paused || reduce()) return;
-      if (scs[n].classList.contains("long")) scrollLong(scs[n]); else flowT = setTimeout(next, 4500);
+      scs.forEach((s, k) => { s.classList.toggle("on", k === n); if (k !== n) s.dataset.stop = "1"; });
+      if (count) count.textContent = `${n + 1} / ${scs.length}`;
+      if (reduce()) return;
+      if (scs[n].classList.contains("long")) scrollLong(scs[n]);
+      else if (auto && !paused) schedule(4500, next);
     };
     const next = () => show((i + 1) % scs.length);
-    ph.addEventListener("click", () => {
-      paused = !paused; ph.classList.toggle("paused", paused);
-      if (paused) { clearTimeout(flowT); cancelAnimationFrame(raf); } else show(i);
+    const prev = () => show((i - 1 + scs.length) % scs.length);
+    const manual = (fn) => () => { auto = false; fn(); };
+    document.querySelector("[data-fprev]").onclick = manual(prev);
+    document.querySelector("[data-fnext]").onclick = manual(next);
+    /* свайп вліво-вправо; вертикальний жест лишається для скролу сторінки */
+    let sx = null, sy = null;
+    ph.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });
+    ph.addEventListener("pointerup", (e) => {
+      if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { auto = false; dx < 0 ? next() : prev(); }
     });
-    dots.forEach((d, k) => d.addEventListener("click", () => show(k)));
-    document.querySelector("[data-fprev]").onclick = () => show((i - 1 + scs.length) % scs.length);
-    document.querySelector("[data-fnext]").onclick = () => show((i + 1) % scs.length);
-    if (reduce()) { paused = true; ph.classList.add("paused"); }
+    ph.addEventListener("pointercancel", () => { sx = null; });
+    /* клік на комп'ютері: пауза і ручний скрол усередині; на телефоні внутрішній скрол не вмикаємо */
+    if (!touch) ph.addEventListener("click", () => {
+      paused = !paused; ph.classList.toggle("paused", paused);
+      if (paused) { clearTimeout(flowT); cancelAnimationFrame(raf); } else { auto = true; show(i); }
+    });
+    if (reduce()) { paused = true; if (!touch) ph.classList.add("paused"); }
     show(0);
   }
 

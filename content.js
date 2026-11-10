@@ -100,7 +100,7 @@ window.CONTENT = {
 
     caseApp: {
       context: "MAUDAU is a Ukrainian marketplace. Most guests shopped from their phones and competitors already had apps, but ours wasn’t even on the roadmap. The business needed push notifications for promos, easier order tracking and a closer relationship with guests.",
-      role: "Took over the early-stage mobile app initiative, created the winning concept adopted by stakeholders, and led the mobile design direction going forward",
+      role: "Another designer started the concept first, but it didn’t land. I joined, my concept became the final one, and then I led the mobile direction in the company.",
       steps: [
         { t: "Concept", d: "Fresh, clean and calm, with no extra noise. Useful widgets on the home screen, like live order tracking, put the most important things one tap away." },
         { t: "Alpha test", d: "With two other designers I ran offline usability tests with colleagues who had never seen the app, plus a survey. The task: find and order three products from different sellers. 21 participants, 242 insights." },
@@ -117,7 +117,8 @@ window.CONTENT = {
         "One cart for several sellers, with a clear split into orders",
         "Track every parcel without calling support",
       ],
-      flowHint: "tap the screen to pause and scroll",
+      flowHint: "click the screen to pause and scroll it",
+      flowHintTouch: "use the arrows or swipe to browse the screens",
       result: "The app’s share of active guests grew from 5% to over 51% in under a year and passed the 30% forecast by month six. In interviews, guests kept telling me they order through the app.",
       learned: "Step in when you have a vision, even if the task isn’t yours. I can pick up a project from zero, and I’m sure now: I love designing apps.",
     },
@@ -152,6 +153,7 @@ window.CONTENT = {
         { img: "re-web-03", t: "Order details", d: "Bring back a single product you liked last time." },
         { img: "re-web-04", t: "Home pop-up", d: "A familiar set of products? Repeat the whole order, or later." },
       ],
+      mobileShots: ["Mobile: empty cart with previous orders", "Mobile: only available items are added"],
       iterTitle: "How the A/B test went",
       iter: [
         { t: "First test", d: "With a big tutorial pop-up, the share of repeat orders grew by about 40% and their average value by about 29%." },
@@ -320,7 +322,7 @@ window.CONTENT = {
 
     caseApp: {
       context: "MAUDAU — український маркетплейс. Більшість гостей купували з телефона, у конкурентів давно були застосунки, а нашого навіть не було в роудмапі. Бізнесу потрібні були пуші про акції, зручне відстеження замовлень і ближчий зв’язок з гостями.",
-      role: "Підхопила ініціативу створення мобільного застосунку на ранньому етапі, розробила фінальну концепцію, затверджену стейкхолдерами, і надалі очолила напрям мобільного дизайну в компанії",
+      role: "Першим концепт почав робити інший дизайнер, але його варіант не прижився. Я підключилася, мій концепт затвердили як фінальний, а далі я очолила мобільний напрямок у компанії.",
       steps: [
         { t: "Концепт", d: "Свіжо, чисто і спокійно, без зайвого шуму. Корисні віджети на головній, як-от живе відстеження замовлення, тримають найважливіше на відстані одного тапу." },
         { t: "Альфа-тест", d: "Разом із двома дизайнерами я провела офлайн юзабіліті-тестування з колегами, які ще не бачили застосунку, а також опитування. Завдання: знайти й замовити три товари від різних продавців. 21 учасник, 242 інсайти." },
@@ -337,7 +339,8 @@ window.CONTENT = {
         "Один кошик для кількох продавців із чітким поділом на замовлення",
         "Відстеження посилки без дзвінка в підтримку",
       ],
-      flowHint: "тапни по екрану, щоб зупинити і погортати",
+      flowHint: "клікни по екрану, щоб зупинити і погортати",
+      flowHintTouch: "гортай екрани стрілками або свайпом",
       result: "Частка застосунку серед активних гостей зросла з 5% до понад 51% менш ніж за рік і перекрила прогноз у 30% уже на шостому місяці. На інтерв’ю гості раз у раз казали мені, що замовляють через застосунок.",
       learned: "Брати ініціативу, коли маєш бачення, навіть якщо задача не твоя. Я можу підхопити проєкт з нуля і тепер точно знаю: я люблю робити застосунки.",
     },
@@ -372,6 +375,7 @@ window.CONTENT = {
         { img: "re-web-03", t: "Деталі замовлення", d: "Повернути в кошик окремий товар, який сподобався минулого разу." },
         { img: "re-web-04", t: "Поп-ап на головній", d: "Знайомий набір товарів? Повторити замовлення повністю або іншим разом." },
       ],
+      mobileShots: ["Мобільна версія: порожній кошик з попередніми замовленнями", "Мобільна версія: додаємо лише наявні товари"],
       iterTitle: "Як пройшов A/B-тест",
       iter: [
         { t: "Перший тест", d: "Із великим навчальним поп-апом частка повторних замовлень зросла приблизно на 40%, а їхній середній чек — приблизно на 29%." },
