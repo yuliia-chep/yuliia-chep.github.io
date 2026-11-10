@@ -100,7 +100,7 @@ window.CONTENT = {
 
     caseApp: {
       context: "MAUDAU is a Ukrainian marketplace. Most guests shopped from their phones and competitors already had apps, but ours wasn’t even on the roadmap. The business needed push notifications for promos, easier order tracking and a closer relationship with guests.",
-      role: "Another designer started the concept first, but it didn’t land. I joined, my concept became the final one, and then I led the mobile direction in the company.",
+      role: "Took over the early-stage mobile app initiative, created the winning concept adopted by stakeholders, and led the mobile design direction going forward",
       steps: [
         { t: "Concept", d: "Fresh, clean and calm, with no extra noise. Useful widgets on the home screen, like live order tracking, put the most important things one tap away." },
         { t: "Alpha test", d: "With two other designers I ran offline usability tests with colleagues who had never seen the app, plus a survey. The task: find and order three products from different sellers. 21 participants, 242 insights." },
@@ -320,7 +320,7 @@ window.CONTENT = {
 
     caseApp: {
       context: "MAUDAU — український маркетплейс. Більшість гостей купували з телефона, у конкурентів давно були застосунки, а нашого навіть не було в роудмапі. Бізнесу потрібні були пуші про акції, зручне відстеження замовлень і ближчий зв’язок з гостями.",
-      role: "Першим концепт почав робити інший дизайнер, але його варіант не прижився. Я підключилася, мій концепт затвердили як фінальний, а далі я очолила мобільний напрямок у компанії.",
+      role: "Підхопила ініціативу створення мобільного застосунку на ранньому етапі, розробила фінальну концепцію, затверджену стейкхолдерами, і надалі очолила напрям мобільного дизайну в компанії",
       steps: [
         { t: "Концепт", d: "Свіжо, чисто і спокійно, без зайвого шуму. Корисні віджети на головній, як-от живе відстеження замовлення, тримають найважливіше на відстані одного тапу." },
         { t: "Альфа-тест", d: "Разом із двома дизайнерами я провела офлайн юзабіліті-тестування з колегами, які ще не бачили застосунку, а також опитування. Завдання: знайти й замовити три товари від різних продавців. 21 учасник, 242 інсайти." },
