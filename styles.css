@@ -425,3 +425,27 @@ p + p { margin-top: var(--s2); }
   .tape-info .open { grid-column: 1; grid-row: auto; margin-top: var(--s1); }
 }
 @media (min-width: 1101px) { .cases-layout { justify-content: center; gap: var(--s8); } }
+
+/* кейси вміщуються в екран ноутбука */
+.contact h2 { font-size: clamp(36px, 6vw, 80px); max-width: 16ch; margin-inline: auto; }
+.case-band { max-height: none; }
+.case-band h1 { font-size: clamp(34px, min(5.2vw, 8vh), 68px); }
+.band-visual { max-width: min(240px, calc((100vh - 260px) * 0.46)); }
+.band-visual.wide { max-width: min(420px, calc((100vh - 260px) * 1.2)); }
+.annotated .phone-col { width: min(100%, calc((100vh - 220px) * 0.46)); max-width: 340px; justify-self: center; }
+@media (max-width: 1024px) { .annotated .phone-col { width: min(100%, calc((100vh - 200px) * 0.46)); max-width: 380px; } }
+.phones { max-width: calc((100vh - 200px) * 0.46 * 3 + 64px); margin-inline: auto; }
+.app-shots { grid-template-columns: repeat(2, minmax(0, min(300px, calc((100vh - 200px) * 0.46)))); }
+.compare { max-width: min(100%, calc((100vh - 230px) * 1.25)); margin-inline: auto; }
+.compare-tabs { justify-content: center; }
+.compare-hint { text-align: center; }
+.entries { max-width: min(100%, calc((100vh - 200px) * 2.2)); margin-inline: auto; }
+.scroller { height: min(560px, calc(100vh - 220px)); }
+@keyframes scrollpage { 0%, 8% { transform: translateY(0); } 100% { transform: translateY(calc(-100% + min(560px, calc(100vh - 220px)))); } }
+.final { max-width: min(100%, calc((100vh - 220px) * 1.6)); margin-inline: auto; }
+.flow-nav { display: flex; align-items: center; gap: var(--s2); }
+.nav-key { height: 40px; min-width: 52px; padding: 0 var(--s1); font-size: 13px; letter-spacing: -2px; box-shadow: 0 4px 0 #0E0F1C; }
+.flow-ui { width: max-content; max-width: 92vw; margin-inline: auto; justify-self: center; }
+.annotated .phone-col { display: grid; justify-items: center; }
+.flow-dots { flex-wrap: nowrap; gap: 6px; }
+.flow-hint { text-align: center; }

@@ -258,7 +258,7 @@
       <section class="block"><h2>${esc(L.quotes)}</h2><div>${quotes(c.quotes)}</div></section>
       <section class="free"><h2 class="sub-title">${esc(L.solution)}</h2>
         <div class="annotated">${notesCol(c.notes.slice(0, 2), "left")}
-          <div class="phone-col">${phone(scr, "flow")}<div class="flow-ui"><div class="flow-dots" role="group" aria-label="Screens">${S.appFlow.map((_, i) => `<button aria-label="${i + 1}" aria-current="${i === 0}"></button>`).join("")}</div><span class="hand flow-hint">${esc(c.flowHint)}</span></div></div>
+          <div class="phone-col">${phone(scr, "flow")}<div class="flow-ui"><div class="flow-nav"><button class="key nav-key" id="fPrev" type="button" aria-label="Previous screen">◀◀</button><div class="flow-dots" role="group" aria-label="Screens">${S.appFlow.map((_, i) => `<button aria-label="${i + 1}" aria-current="${i === 0}"></button>`).join("")}</div><button class="key nav-key" id="fNext" type="button" aria-label="Next screen">▶▶</button></div><span class="hand flow-hint">${esc(c.flowHint)}</span></div></div>
           ${notesCol(c.notes.slice(2), "right")}</div>
         <ul class="notes-list">${c.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
       </section>
@@ -342,7 +342,7 @@
       scs.forEach((s, k) => s.classList.toggle("on", k === n));
       dots.forEach((d, k) => d.setAttribute("aria-current", k === n));
       if (paused || reduce()) return;
-      if (scs[n].classList.contains("long")) scrollLong(scs[n]); else flowT = setTimeout(next, 2800);
+      if (scs[n].classList.contains("long")) scrollLong(scs[n]); else flowT = setTimeout(next, 4500);
     };
     const next = () => show((i + 1) % scs.length);
     ph.addEventListener("click", () => {
@@ -350,6 +350,8 @@
       if (paused) { clearTimeout(flowT); cancelAnimationFrame(raf); } else show(i);
     });
     dots.forEach((d, k) => d.addEventListener("click", () => show(k)));
+    document.getElementById("fPrev").onclick = () => show((i - 1 + scs.length) % scs.length);
+    document.getElementById("fNext").onclick = () => show((i + 1) % scs.length);
     if (reduce()) { paused = true; ph.classList.add("paused"); }
     show(0);
   }
@@ -372,7 +374,6 @@
     const d = t.work.deck;
     document.querySelectorAll(".tape").forEach((card) => {
       const id = card.dataset.id, art = card.querySelector(".tape-art");
-      card.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") playSound(id); });
       if (!art) return;
       let start = null, ghost = null, dragged = false;
       art.addEventListener("pointerdown", (e) => {
@@ -418,7 +419,6 @@
     document.querySelectorAll(".tape").forEach((c) => c.classList.toggle("loaded", c.dataset.id === id));
     document.getElementById("miniT").innerHTML = `${esc(t.cases[id].title)}<small>${esc(d.loaded)}</small>`;
     document.getElementById("mini").classList.add("show");
-    if (!silent) playSound(id);
   }
   function unload(t) {
     loaded = null; stopSound();

@@ -240,7 +240,7 @@ window.CONTENT = {
     },
 
     contact: {
-      title: "Let’s talk",
+      title: "Shall we build something together?",
       text: "Got a product idea or an open role in your product team? Write to me.",
       telegram: "Telegram",
       email: "Email",
@@ -459,7 +459,7 @@ window.CONTENT = {
     },
 
     contact: {
-      title: "Поговорімо",
+      title: "Створимо щось разом?",
       text: "Маєш ідею продукту або відкриту вакансію в продуктовій команді? Пиши мені.",
       telegram: "Telegram",
       email: "Email",
