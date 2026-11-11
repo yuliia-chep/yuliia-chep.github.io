@@ -234,7 +234,7 @@
   /* ---------- кейси ---------- */
   function bandVisual(id) {
     const v = { app: "app-01-home", reorder: "re-m-01-empty-cart", favorites: "fav-01-my-lists" }[id];
-    if (v) return `<div class="band-visual" aria-hidden="true">${phone(`<img class="fill" src="${IMG(v)}" alt="">`, v.startsWith("re-m-") ? "pad" : "")}</div>`;
+    if (v) { const fill = v.startsWith("re-m-"); return `<div class="band-visual" aria-hidden="true">${phone(`<img${fill ? ' class="fill"' : ""} src="${IMG(v)}" alt="">`, fill ? "pad" : "")}</div>`; }
     return `<div class="band-visual wide" aria-hidden="true">${browser("rd-home-b", "")}</div>`;
   }
   function caseHero(id, t) {
@@ -263,7 +263,7 @@
       <section class="free flow-sec">
         <div class="annotated">
           <div class="col col-l">
-            <div class="flow-head"><h2 class="sub-title">${esc(L.solution)}</h2><p class="hand flow-hint"><span class="h-mouse">${esc(c.flowHint)}</span><span class="h-touch">${esc(c.flowHintTouch)}</span></p></div>
+            <div class="flow-head"><h2 class="sub-title">${esc(L.solution)}</h2><p class="hand flow-hint">${c.flowHint ? `<span class="h-mouse">${esc(c.flowHint)}</span>` : ""}<span class="h-touch">${esc(c.flowHintTouch)}</span></p></div>
             ${notesCol(c.notes.slice(0, 2), "left")}
           </div>
           <div class="stage">

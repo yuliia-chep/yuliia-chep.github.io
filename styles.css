@@ -531,3 +531,23 @@ html { overflow-x: hidden; }
 .app-shots figcaption { margin-top: var(--s2); font-size: 24px; text-align: center; }
 .phone.pad .scr { padding-top: 32px; background: #fff; }
 .phone.pad .scr > img.fill { height: 100%; }
+
+/* відео пет-сканера заповнює екран телефона без смуги зверху */
+.phone .scr video { object-fit: cover; object-position: center; background: #E4D4FE; }
+
+/* Reorder: однакові рамки, рівні ряди і спільна сітка для вебу та мобільних екранів */
+.entries, .app-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s8) var(--s5); max-width: none; margin-inline: 0; align-items: start; }
+.entries figure { margin: 0; display: grid; grid-template-rows: auto 1fr; }
+.entries .browser img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; height: auto; }
+.entries figcaption { margin-top: var(--s2); }
+.entries h3 { font-size: 18px; }
+.entries p { margin-top: var(--s1); color: var(--muted); font-size: 16px; }
+.app-shots { margin-top: var(--s10); }
+.app-shots figure { margin: 0; display: grid; justify-items: center; }
+.app-shots .phone { width: min(300px, calc((var(--vh) - 200px) * 0.46), 100%); }
+.app-shots figcaption { margin-top: var(--s2); max-width: 320px; text-align: center; font-size: 24px; }
+@media (max-width: 760px) {
+  .entries, .app-shots { grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
+  .app-shots { margin-top: var(--s6); }
+  .app-shots .phone { width: min(260px, 100%); }
+}
