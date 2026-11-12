@@ -131,10 +131,12 @@
     const c = t.cases[id];
     return `<article class="tape" data-id="${id}" style="--tape:${S.tapes[id]}">
       <button class="tape-art" type="button" aria-label="${esc(t.work.deck.load)}: ${esc(c.title)}">${cassette(id, c.title)}</button>
-      <div class="tape-info">
-        <div class="metric">${esc(c.metric)}</div>
-        <div class="metric-label">${esc(c.short)}</div>
-        <a class="open" href="#${id}">${esc(t.work.open)} ${arrow.replace('viewBox="0 0 72 26"', 'viewBox="0 0 72 26" width="34" height="14"')}</a>
+      <div class="tape-body">
+        <h3 class="tape-title">${esc(c.title)}</h3>
+        <div class="tape-foot">
+          <a class="open" href="#${id}">${esc(t.work.open)} ${arrow.replace('viewBox="0 0 72 26"', 'viewBox="0 0 72 26" width="34" height="14"')}</a>
+          <div class="tape-metric"><b>${esc(c.metric)}</b><span>${esc(c.short)}</span></div>
+        </div>
       </div>
     </article>`;
   }
@@ -168,6 +170,27 @@
     </div>`;
   }
 
+  /* ---------- блоки B2B-кейсів у «Ще з мого столу» ---------- */
+  const shotFig = (src, cap, zoomLabel) => `<figure class="shot"><button class="zoom" type="button" data-zoom="${src}" aria-label="${esc(zoomLabel)}: ${esc(cap)}">${browser(src, cap)}</button><figcaption>${esc(cap)}</figcaption></figure>`;
+  const statsDl = (arr) => `<dl class="stats">${arr.map((s) => `<div><dt>${esc(s.n)}</dt><dd>${esc(s.l)}</dd></div>`).join("")}</dl>`;
+  function caseFolder(c, cls, shots, m) {
+    return `<article class="folder b2b ${cls}" data-tab="${esc(c.tab)}">
+      <div class="cf-main">
+        <span class="badge">${esc(c.badge)}</span>
+        <h3>${esc(c.title)}</h3>
+        ${c.lead ? `<p class="cf-lead">${esc(c.lead)}</p>` : ""}
+        <p>${esc(c.text)}</p>
+        ${c.example ? `<p>${esc(c.example)}</p>` : ""}
+        ${c.features ? `<ul class="feats">${c.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
+        ${c.period ? `<p class="period">${esc(c.period)}</p>` : ""}
+        ${statsDl(c.stats)}
+      </div>
+      <div class="cf-shots">${shots.map((s, i) => shotFig(s, c.shots[i], m.zoom)).join("")}<p class="hand zoom-hint">${esc(m.zoom)}</p></div>
+    </article>`;
+  }
+
+  const quoteHTML = (q) => { const ps = String(q).split("\n\n"); return ps.map((p, i) => `<p>${i === 0 ? "“" : ""}${esc(p)}${i === ps.length - 1 ? "”" : ""}</p>`).join(""); };
+
   /* ---------- головна ---------- */
   function home(t) {
     const h = t.hero, m = t.more, a = t.about;
@@ -192,13 +215,13 @@
     <section class="section" id="more"><div class="wrap">
       <div class="sec-head"><h2>${esc(m.title)}</h2><span class="hand">${esc(m.note)}</span></div>
       <div class="folders">
-        <article class="folder" data-tab="${esc(m.pet.tab)}"><div class="folder-grid">
+        ${caseFolder(m.mc, "span-12 wide-case", ["mc-01-moderation", "mc-02-import-history"], m)}
+        ${caseFolder(m.cashback, "span-6", ["b2b-01-merchant", "b2b-02-cart"], m)}
+        ${caseFolder(m.backoffice, "span-6", ["bo-01-promo-admin", "bo-02-cart-ccd"], m)}
+        <article class="folder span-5 pet" data-tab="${esc(m.pet.tab)}"><div class="folder-grid">
           ${phone(`<video src="${FILE("pet-scan.mp4")}" poster="${FILE("pet-poster.webp")}" muted loop playsinline autoplay preload="metadata" aria-label="${esc(m.pet.title)}"></video>`)}
           <div><h3>${esc(m.pet.title)}</h3><p>${esc(m.pet.text)}</p><p class="hand">${esc(m.pet.note)}</p></div></div></article>
-        <article class="folder" data-tab="${esc(m.b2b.tab)}"><h3>${esc(m.b2b.title)}</h3><p class="lead">${esc(m.b2b.text)}</p>
-          <div class="sheet"><p>${esc(m.b2b.highlight)}</p></div>
-          <div class="b2b-shots">${browser("b2b-01-merchant", "Merchant center")}${browser("b2b-02-cart", "Cart")}</div></article>
-        <article class="folder wide" data-tab="${esc(m.earlier.tab)}"><h3>${esc(m.earlier.title)}</h3>
+        <article class="folder span-7 earlier-folder" data-tab="${esc(m.earlier.tab)}"><h3>${esc(m.earlier.title)}</h3>
           <div class="earlier">${m.earlier.items.map((i) => `<div class="sheet"><h4>${esc(i.t)}</h4><p class="period">${esc(i.p)}</p><p>${esc(i.d)}</p>${i.link ? `<a href="${i.link}" target="_blank" rel="noopener">${esc(i.linkText)}</a>` : ""}</div>`).join("")}</div></article>
       </div>
     </div></section>
@@ -217,7 +240,10 @@
 
     <section class="section"><div class="wrap">
       <div class="sec-head"><h2>${esc(t.recs.title)}</h2></div>
-      <div class="recs">${t.recs.items.map((r) => `<figure class="rec"><blockquote>“${esc(r.q)}”</blockquote><figcaption class="who">${esc(r.who)}<span>${esc(r.role)}</span></figcaption></figure>`).join("")}</div>
+      <div class="slider" data-slider role="region" aria-roledescription="carousel" aria-label="${esc(t.recs.title)}">
+        <div class="slider-track" tabindex="0">${t.recs.items.map((r) => `<figure class="rec"><blockquote>${quoteHTML(r.q)}</blockquote><figcaption class="who">${esc(r.who)}${r.role ? `<span>${esc(r.role)}</span>` : ""}</figcaption></figure>`).join("")}</div>
+        <div class="slider-ui"><button class="key slide-btn" type="button" data-sprev aria-label="Previous">${I.prev}</button><div class="slider-dots" role="group" aria-label="Slides"></div><button class="key slide-btn" type="button" data-snext aria-label="Next">${I.next}</button></div>
+      </div>
       <a href="${S.contacts.linkedin}details/recommendations/" target="_blank" rel="noopener" class="hand recs-more">${esc(t.recs.more)}</a>
     </div></section>
     ${contact(t)}</main>`;
@@ -489,6 +515,55 @@
     if (isHome && homeLoaded) load(homeLoaded);
   }
 
+  /* ---------- слайдер відгуків ---------- */
+  let sliderResize = null;
+  function startSlider() {
+    if (sliderResize) window.removeEventListener("resize", sliderResize);
+    const roots = [...document.querySelectorAll("[data-slider]")];
+    const inits = roots.map((root) => {
+      const track = root.querySelector(".slider-track"), cards = [...track.children];
+      const prev = root.querySelector("[data-sprev]"), next = root.querySelector("[data-snext]"), dotsEl = root.querySelector(".slider-dots");
+      let steps = 1, stepW = 1;
+      const measure = () => {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        stepW = cards[0].offsetWidth + gap;
+        const visible = Math.max(1, Math.round((track.clientWidth + gap) / stepW));
+        steps = Math.max(1, cards.length - visible + 1);
+        dotsEl.innerHTML = Array.from({ length: steps }, (_, i) => `<button type="button" aria-label="${i + 1}"></button>`).join("");
+        [...dotsEl.children].forEach((d, i) => (d.onclick = () => go(i)));
+        root.classList.toggle("single", steps === 1);
+        update();
+      };
+      const index = () => Math.min(steps - 1, Math.max(0, Math.round(track.scrollLeft / stepW)));
+      const update = () => {
+        const i = index();
+        [...dotsEl.children].forEach((d, k) => d.setAttribute("aria-current", k === i));
+        prev.disabled = i <= 0; next.disabled = i >= steps - 1;
+      };
+      const go = (i) => track.scrollTo({ left: Math.max(0, Math.min(steps - 1, i)) * stepW, behavior: reduce() ? "auto" : "smooth" });
+      prev.onclick = () => go(index() - 1); next.onclick = () => go(index() + 1);
+      track.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+      track.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { e.preventDefault(); go(index() + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(index() - 1); } });
+      return measure;
+    });
+    inits.forEach((f) => f());
+    sliderResize = () => inits.forEach((f) => f());
+    window.addEventListener("resize", sliderResize);
+  }
+
+  /* ---------- збільшення скрінів ---------- */
+  let lb = null;
+  function closeLightbox() { if (!lb) return; const o = lb.opener; lb.remove(); lb = null; document.body.style.overflow = ""; if (o) o.focus(); }
+  function openLightbox(name, opener) {
+    closeLightbox();
+    lb = document.createElement("div"); lb.className = "lightbox"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true"); lb.opener = opener;
+    lb.innerHTML = `<button class="lb-close" type="button" aria-label="Close">${I.close}</button><img src="${IMG(name)}" alt="">`;
+    lb.addEventListener("click", closeLightbox);
+    document.body.appendChild(lb); document.body.style.overflow = "hidden"; lb.querySelector(".lb-close").focus();
+  }
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+  function startZoom() { document.querySelectorAll("[data-zoom]").forEach((b) => b.addEventListener("click", () => openLightbox(b.dataset.zoom, b))); }
+
   /* ---------- рендер ---------- */
   function render() {
     const t = window.CONTENT[lang];
@@ -518,7 +593,7 @@
     const menu = $("menu"), burger = $("burger");
     burger.onclick = () => { const open = menu.hidden; menu.hidden = !open; burger.setAttribute("aria-expanded", open); burger.innerHTML = open ? I.close : I.burger; };
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => { menu.hidden = true; burger.setAttribute("aria-expanded", false); burger.innerHTML = I.burger; }));
-    startFlow(); startCompare(); startScroller(); startDecks(t);
+    startFlow(); startCompare(); startScroller(); startDecks(t); startSlider(); startZoom();
   }
 
   let lastView = null;

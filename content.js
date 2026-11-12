@@ -182,17 +182,65 @@ window.CONTENT = {
     more: {
       title: "More from my desk",
       note: "smaller things I’m proud of",
+      zoom: "click a screen to enlarge",
+      mc: {
+        tab: "B2B product",
+        badge: "B2B",
+        title: "Merchant Center",
+        lead: "A B2B platform where marketplace sellers run their business",
+        text: "Over a year ago, we set out to build our Merchant Center from scratch. Previously, the first 20–30 sellers were onboarded manually without a dedicated workspace. Joining as the product designer, I leveraged our internal design system to accelerate development. Together with the team, we launched the core MVP and iteratively expanded it with merchant balances, reference directories, and other key tools",
+        features: [
+          "Orders grid",
+          "Order tracking and statuses",
+          "Adding products manually and in bulk",
+          "Merchant balance",
+          "Reference directories",
+        ],
+        stats: [
+          { n: "20–30 → 970", l: "Merchants on MAUDAU, up to November 2026" },
+        ],
+        shots: [
+          "Moderation requests",
+          "Product auto-update history",
+        ],
+      },
+      cashback: {
+        tab: "payments",
+        badge: "Payments",
+        title: "National Cashback payments",
+        text: "A standout story in speed and execution: I designed the National Cashback payment flow in a single day, engineering shipped it within a week, and we became the first online retailer to accept it when state winter aid rolled out. Merchants toggle the option on in their settings, while guests see a clear badge on eligible items right inside the cart",
+        period: "Dec 2025 – Jul 2026, while the payment method was active",
+        stats: [
+          { n: "4.16%", l: "of total revenue for the period" },
+          { n: "8.54%", l: "of all orders for the period" },
+        ],
+        shots: [
+          "Payment methods in the Merchant Center",
+          "Eligible items marked in the cart",
+        ],
+      },
+      backoffice: {
+        tab: "back office",
+        badge: "Internal tools",
+        title: "Inside the back office: building complex promo tools",
+        text: "A significant part of my work happened behind the scenes in our internal admin panel. I worked closely with various departments to unpack their daily routines and translate those needs into tailored tools—from order management for customer support and promo mechanics for marketing to B2B client workflows and catalog management for the content team",
+        example: "A recent example is cross-category discounts, a new promo mechanic: if a guest adds pet food to their cart, a prompt shows that adding treats or a toy unlocks a discount on the food. I designed both sides of the experience—how marketers configure the rules in the admin panel and how guests see the offer in the cart and other places",
+        period: "May 2025 – Oct 2026",
+        stats: [
+          { n: "UAH 70M", l: "turnover" },
+          { n: "65,374", l: "carts with a cross-category discount" },
+          { n: "45,680", l: "guests used it" },
+        ],
+        shots: [
+          "Setting up the promo in the admin",
+          "The offer in the guest’s cart",
+        ],
+      },
       pet: {
         tab: "a team idea, just for fun",
         title: "Pet scanner",
         text: "A playful easter egg we built for pet lovers: scan your pet with the in-app barcode reader to generate a playful product card. You get a “Tail of the Year” badge, funny specs, and a “Priceless” tag—with instant options to share the card, donate to an animal shelter, or grab some treats",
         note: "starring my dog",
-      },
-      b2b: {
-        tab: "back office",
-        title: "Behind the storefront",
-        text: "A significant part of my work happened behind the scenes: internal admin tools and the merchant portal. I shadowed marketing, customer support, B2B, and commercial teams to unpack their daily workflows—translating those needs into a merchant dashboard, order management, moderation pipelines, stop lists, and flexible promo mechanics",
-        highlight: "A standout story in speed and execution: I designed the National Cashback payment flow in a single day, the engineering team shipped it within a week, and we became the first online retailer to support it when state winter aid rolled out",
       },
       earlier: {
         tab: "earlier work",
@@ -236,8 +284,9 @@ window.CONTENT = {
     recs: {
       title: "Kind words",
       items: [
+        { q: "I had the pleasure of working with Yuliia Chepizhna, a talented Product Designer who combines a strong sense of visual style with deep expertise in UX testing and A/B experimentation.\n\nYuliia has a keen eye for design and understands how to make an interface both visually appealing and intuitive. She looks beyond aesthetics, carefully considering how people interact with a product and where their experience can be improved.\n\nWhat particularly stands out is her ability to put design ideas to the test. She brings a thoughtful approach to UX research and A/B testing, using evidence to challenge assumptions and refine solutions. That combination of creative judgment and analytical thinking is a real strength.\n\nI would gladly recommend Yuliia to any team looking for a Product Designer who brings visual craft, a deep understanding of users, and a commitment to making informed design decisions.", who: "Dmytro Moskalenko", role: "CTO" },
         { q: "She played a pivotal role in my career journey. From conducting my very first interviews to becoming a trusted teammate, she made the entire process incredibly smooth and comfortable.", who: "Daria Nevmyvaka", role: "Product Designer" },
-        { q: "Yulia has a great talent for creating beautiful and user-friendly designs. She’s not just skilled but also a great team player. She communicates well and is open to feedback.", who: "Igor Remeniuk", role: "Product and design lead, managed Yuliia" },
+        { q: "Yulia has a great talent for creating beautiful and user-friendly designs. She’s not just skilled but also a great team player. She communicates well and is open to feedback.", who: "Igor Remeniuk", role: "Product and design lead" },
       ],
       more: "Read on LinkedIn",
     },
@@ -404,17 +453,65 @@ window.CONTENT = {
     more: {
       title: "Ще з моєї практики",
       note: "менші проєкти, якими я пишаюся",
+      zoom: "клікни по екрану, щоб збільшити",
+      mc: {
+        tab: "B2B-продукт",
+        badge: "B2B",
+        title: "Мерчант-центр",
+        lead: "B2B-платформа, у якій продавці маркетплейсу ведуть свій бізнес",
+        text: "Понад рік тому ми взялися за створення мерчант-центру з нуля. Доти перших 20–30 продавців підключали вручну, а власного кабінету в них узагалі не було. Я долучилася до проєкту як дизайнерка і побудувала інтерфейс на базі дизайн-системи внутрішньої платформи — це суттєво пришвидшило розробку. Разом із командою ми запустили базовий функціонал, а згодом доповнили його балансом продавця, довідниками та іншими потрібними інструментами",
+        features: [
+          "Список замовлень",
+          "Відстеження і статуси замовлень",
+          "Додавання товарів вручну і масово",
+          "Баланс мерчанта",
+          "Довідники",
+        ],
+        stats: [
+          { n: "20–30 → 970", l: "Мерчантів на платформі MAUDAU до листопада 2026" },
+        ],
+        shots: [
+          "Запити на модерацію",
+          "Історія автооновлення товарів",
+        ],
+      },
+      cashback: {
+        tab: "оплата",
+        badge: "Платежі",
+        title: "Оплата карткою «Національний кешбек»",
+        text: "Моя улюблена історія про швидкість: сценарій оплати «Національним кешбеком» я спроєктувала за день, команда запустила фічу за тиждень — і ми першими серед онлайн-ритейлерів почали приймати ці картки на старті зимової держпідтримки. Мерчанти вмикають цю оплату в себе в кабінеті, а гості одразу бачать позначку на потрібних товарах у кошику",
+        period: "грудень 2025 – липень 2026, поки діяв цей метод оплати",
+        stats: [
+          { n: "4,16%", l: "від загальної виручки за період" },
+          { n: "8,54%", l: "від усіх замовлень за період" },
+        ],
+        shots: [
+          "Методи оплати в мерчант-центрі",
+          "Позначка Нацкешбек у кошику гостя",
+        ],
+      },
+      backoffice: {
+        tab: "бекофіс",
+        badge: "Внутрішні інструменти",
+        title: "За лаштунками адмінки: складні промомеханіки та внутрішні інструменти",
+        text: "Велика частина моєї роботи залишалася за лаштунками — у внутрішній адмінці. Я працювала пліч-о-пліч з різними відділами, занурювалася в їхню щоденну рутину й перетворювала ці потреби на зручні робочі інструменти: керування замовленнями для контакт-центру, промомеханіки для маркетингу, роботу з B2B-клієнтами, керування товарами для контент-відділу та багато іншого",
+        example: "Наочний приклад — кроскатегорійні знижки, нова промомеханіка: якщо гість додав у кошик корм для улюбленця, система підказує, що зі смаколиками чи іграшкою на нього діятиме знижка. Я спроєктувала обидва боки цієї логіки: як маркетологи налаштовують умови в адмінці та як гості бачать пропозицію в кошику та інших місцях",
+        period: "травень 2025 – жовтень 2026",
+        stats: [
+          { n: "70 млн грн", l: "обороту" },
+          { n: "65 374", l: "кошиків із крос-категорійною знижкою" },
+          { n: "45 680", l: "гостей скористались" },
+        ],
+        shots: [
+          "Налаштування акції в адмінці",
+          "Пропозиція в кошику гостя",
+        ],
+      },
       pet: {
         tab: "ідея команди just for fun",
         title: "Пет-сканер",
         text: "Пасхалка для пет-батьків від нашої команди: наводиш сканер штрихкодів у застосунку на пухнастого й отримуєш жартівливу картку товару. Там і відзнака «Хвостик року», і кумедні характеристики, і цінник «Безцінно». Звідти можна поділитися карткою, задонатити притулку чи одразу замовити смаколики",
         note: "у головній ролі мій пес",
-      },
-      b2b: {
-        tab: "бекофіс",
-        title: "За лаштунками вітрини",
-        text: "Значна частина моєї роботи залишалася за лаштунками — у внутрішній адмінці та мерчант-центрі. Я тісно взаємодіяла з маркетингом, підтримкою, B2B та комерційним відділом, вивчаючи їхні щоденні процеси, і перетворювала ці інсайти на зручні робочі столи продавців, процесинг замовлень, стоп-листи, модерацію товарів і нові промомеханіки",
-        highlight: "Один із моїх улюблених прикладів швидкої доставки цінності: флоу оплати карткою «Національний кешбек» я спроєктувала за день, розробка запустила реліз за тиждень, і ми стали першим ритейлером, який приймав ці виплати зі старту державної зимової допомоги",
       },
       earlier: {
         tab: "попередні проєкти",
@@ -458,8 +555,9 @@ window.CONTENT = {
     recs: {
       title: "Добрі слова",
       items: [
+        { q: "I had the pleasure of working with Yuliia Chepizhna, a talented Product Designer who combines a strong sense of visual style with deep expertise in UX testing and A/B experimentation.\n\nYuliia has a keen eye for design and understands how to make an interface both visually appealing and intuitive. She looks beyond aesthetics, carefully considering how people interact with a product and where their experience can be improved.\n\nWhat particularly stands out is her ability to put design ideas to the test. She brings a thoughtful approach to UX research and A/B testing, using evidence to challenge assumptions and refine solutions. That combination of creative judgment and analytical thinking is a real strength.\n\nI would gladly recommend Yuliia to any team looking for a Product Designer who brings visual craft, a deep understanding of users, and a commitment to making informed design decisions.", who: "Dmytro Moskalenko", role: "CTO" },
         { q: "She played a pivotal role in my career journey. From conducting my very first interviews to becoming a trusted teammate, she made the entire process incredibly smooth and comfortable.", who: "Daria Nevmyvaka", role: "Product Designer" },
-        { q: "Yulia has a great talent for creating beautiful and user-friendly designs. She’s not just skilled but also a great team player. She communicates well and is open to feedback.", who: "Igor Remeniuk", role: "Керував роботою Юлії" },
+        { q: "Yulia has a great talent for creating beautiful and user-friendly designs. She’s not just skilled but also a great team player. She communicates well and is open to feedback.", who: "Igor Remeniuk", role: "Product and design lead" },
       ],
       more: "Читати в LinkedIn",
     },
