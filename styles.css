@@ -642,3 +642,20 @@ html { overflow-x: hidden; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --folder-pet: #3B2F70; --folder-pet-ink: #EBE5FF; } }
 .folder.pet { background: var(--folder-pet); color: var(--folder-pet-ink); }
 .folder.pet::before { background: var(--folder-pet); }
+
+/* ===== Головні кейси: окрема смуга з іншим фоном, щоб блок не пролистували ===== */
+#work { --band: #1B1E36; --band-ink: #F2F3FA; --band-muted: #B9BDD6; --band-pen: #8FA3FF; position: relative; padding: var(--s10) 0; color: var(--band-ink);
+  background-color: var(--band); background-image: radial-gradient(rgba(242, 243, 250, .10) 1px, transparent 1.3px); background-size: 24px 24px;
+  border-block: 8px solid transparent; border-image: linear-gradient(90deg, #7C5CFF 0 25%, #FF6B9A 25% 50%, #22B58A 50% 75%, #F3B12E 75% 100%) 1; }
+:root[data-theme="dark"] #work { --band: #26225C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #work { --band: #26225C; } }
+#work .sec-head h2 { color: #fff; }
+#work .period { color: var(--band-muted); }
+#work .sec-head .hand { color: var(--band-pen); }
+#work .tape { box-shadow: 6px 6px 0 rgba(143, 163, 255, .55); border-color: #0E0F1C; }
+#work .tape:hover { box-shadow: 9px 9px 0 rgba(143, 163, 255, .75); }
+#work .tape.loaded { box-shadow: 6px 6px 0 rgba(143, 163, 255, .55); }
+#work .deck { box-shadow: 8px 8px 0 #6F86FF; }
+@media (max-width: 1100px) { #work { padding: var(--s8) 0; } }
+@media (max-width: 760px) { #work { padding: var(--s6) 0; } }
+#work .tape { color: var(--ink); }
