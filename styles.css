@@ -635,3 +635,10 @@ html { overflow-x: hidden; }
 @media (max-width: 560px) { .folder.wide-case .cf-shots { grid-template-columns: minmax(0, 1fr); } .folder.span-6 .stats dt { font-size: 22px; } }
 
 .feats li { white-space: normal; border-radius: 16px; }
+
+/* Пет-сканер: лавандовий, близький до синього B2B-кольору, але окремий */
+:root { --folder-pet: #E1D8FF; --folder-pet-ink: #261B52; }
+:root[data-theme="dark"] { --folder-pet: #3B2F70; --folder-pet-ink: #EBE5FF; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --folder-pet: #3B2F70; --folder-pet-ink: #EBE5FF; } }
+.folder.pet { background: var(--folder-pet); color: var(--folder-pet-ink); }
+.folder.pet::before { background: var(--folder-pet); }
