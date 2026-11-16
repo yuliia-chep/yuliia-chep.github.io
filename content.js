@@ -653,7 +653,7 @@ window.CONTENT = {
     },
 
     recs: {
-      title: "Добрі слова",
+      title: "Рекомендації",
       items: [
         { q: "I had the pleasure of working with Yuliia Chepizhna, a talented Product Designer who combines a strong sense of visual style with deep expertise in UX testing and A/B experimentation.\n\nYuliia has a keen eye for design and understands how to make an interface both visually appealing and intuitive. She looks beyond aesthetics, carefully considering how people interact with a product and where their experience can be improved.\n\nWhat particularly stands out is her ability to put design ideas to the test. She brings a thoughtful approach to UX research and A/B testing, using evidence to challenge assumptions and refine solutions. That combination of creative judgment and analytical thinking is a real strength.\n\nI would gladly recommend Yuliia to any team looking for a Product Designer who brings visual craft, a deep understanding of users, and a commitment to making informed design decisions.", who: "Dmytro Moskalenko", role: "CTO" },
         { q: "She played a pivotal role in my career journey. From conducting my very first interviews to becoming a trusted teammate, she made the entire process incredibly smooth and comfortable.", who: "Daria Nevmyvaka", role: "Product Designer" },
