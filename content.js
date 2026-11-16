@@ -31,7 +31,7 @@ window.SITE = {
 
 window.CONTENT = {
   en: {
-    nav: { work: "Work", about: "About", contact: "Contact", back: "All work", theme: "Switch theme", lang: "UA", cv: "Download CV", menu: "Menu", sound: "Sound" },
+    nav: { work: "Work", ai: "AI", about: "About", contact: "Contact", back: "All work", theme: "Switch theme", lang: "UA", cv: "Download CV", menu: "Menu", sound: "Sound" },
 
     hero: {
       name: "Yuliia Chepizhna",
@@ -254,6 +254,56 @@ window.CONTENT = {
       },
     },
 
+    ai: {
+      title: "What I do with AI",
+      note: "a collaborator, not an autopilot",
+      intro: "I use AI to move faster on the heavy parts of design work, and I stay in charge of the decisions. Here is how that looks in practice, one real case at a time",
+      labels: {
+        did: "What I did myself",
+        delegated: "What I delegated",
+        verified: "How I verified",
+        redone: "What had to be redone",
+      },
+      cases: [
+        {
+          tab: "case 1",
+          title: "Building this portfolio with an AI agent",
+          lead: "This site: bilingual, responsive, light and dark, with a cassette player for my cases",
+          tools: [
+            "Claude",
+            "HTML / CSS / JS",
+            "GitHub Pages",
+          ],
+          did: [
+            "Set the concept, references and constraints",
+            "Chose which cases to show and what to keep confidential",
+            "Supplied all the facts and figures, and refined the visuals using commented screenshots",
+          ],
+          delegated: [
+            "Site structure and code: cassette player, device mockups, sliders",
+            "Screenshot edits, draft copy in two languages, CV files",
+            "Automated checks of layout and errors across screen widths",
+          ],
+          verified: [
+            "Reviewed every iteration in the browser, at laptop and phone widths",
+            "Checked every claim and number against my own experience",
+          ],
+          redone: [
+            "The main-flow block: three rounds until it fit one screen",
+            "Sounds: swapped famous melodies for original ones to avoid licensing issues",
+            "A mobile layout bug that I caught from my own screenshot",
+          ],
+        },
+      ],
+      rulesTitle: "My rules",
+      rules: [
+        "No confidential data in prompts: merchant names and internal details are removed or replaced",
+        "I make the decisions; the agent proposes and builds",
+        "Every number, quote and claim is checked by me before it goes public",
+      ],
+      more: "more AI cases coming soon",
+    },
+
     about: {
       title: "About me",
       text: [
@@ -302,7 +352,7 @@ window.CONTENT = {
   },
 
   uk: {
-    nav: { work: "Кейси", about: "Про мене", contact: "Контакти", back: "Усі кейси", theme: "Змінити тему", lang: "EN", cv: "Завантажити CV", menu: "Меню", sound: "Звук" },
+    nav: { work: "Кейси", ai: "AI", about: "Про мене", contact: "Контакти", back: "Усі кейси", theme: "Змінити тему", lang: "EN", cv: "Завантажити CV", menu: "Меню", sound: "Звук" },
 
     hero: {
       name: "Юлія Чепіжна",
@@ -523,6 +573,56 @@ window.CONTENT = {
           { t: "DOIT Software", p: "лютий 2020 – жовтень 2021", d: "Headache Calendar, медичний застосунок, створений разом з неврологами для клієнта з Норвегії, рейтинг 4,7", link: "https://www.behance.net/gallery/121711975/UIUX-Recording-headaches-app", linkText: "Дивитися на Behance" },
         ],
       },
+    },
+
+    ai: {
+      title: "Що я роблю з AI",
+      note: "співавтор, а не автопілот",
+      intro: "Я використовую ШІ, щоб швидше справлятися з рутинними та складними етапами дизайну, але всі фінальні рішення завжди за мною. Ось як це працює на практиці — на прикладі реальних проєктів",
+      labels: {
+        did: "Що я зробила сама",
+        delegated: "Що делегувала",
+        verified: "Як перевіряла",
+        redone: "Що довелося переробити",
+      },
+      cases: [
+        {
+          tab: "кейс 1",
+          title: "Портфоліо, зібране з AI-агентом",
+          lead: "Цей сайт: двомовний, адаптивний, зі світлою й темною темою та касетним плеєром для моїх кейсів",
+          tools: [
+            "Claude",
+            "HTML / CSS / JS",
+            "GitHub Pages",
+          ],
+          did: [
+            "Задала концепт, референси й обмеження",
+            "Обрала, які кейси показувати і що лишити конфіденційним",
+            "Підготувала всі факти й цифри, а візуальний напрямок коригувала за допомогою скріншотів із коментарями",
+          ],
+          delegated: [
+            "Структуру й код сайту: касетний плеєр, девайс-мокапи, слайдери",
+            "Правки скріншотів, чернетки текстів двома мовами, файли CV",
+            "Автоматичні перевірки верстки й помилок на різних розмірах екрана",
+          ],
+          verified: [
+            "Переглядала кожну ітерацію в браузері, на ширинах ноутбука й телефона",
+            "Звіряла кожне твердження й цифри з моїм реальним досвідом",
+          ],
+          redone: [
+            "Блок основного флоу: три раунди, поки він не вмістився на один екран",
+            "Звуки: замінили відомі мелодії на оригінальні, щоб уникнути проблем з ліцензіями",
+            "Помилку мобільної верстки, яку я помітила на власному скріншоті",
+          ],
+        },
+      ],
+      rulesTitle: "Мої правила",
+      rules: [
+        "Жодних конфіденційних даних у промптах: назви мерчантів і внутрішні деталі прибираю або замінюю",
+        "Рішення ухвалюю я, а агент пропонує й будує",
+        "Кожну цифру, цитату й твердження я перевіряю сама, перш ніж вони стають публічними",
+      ],
+      more: "скоро більше кейсів з AI",
     },
 
     about: {

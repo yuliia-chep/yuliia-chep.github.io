@@ -146,14 +146,14 @@
     const cv = `<a class="ctrl cv" href="${FILE(S.cv.replace("assets/", ""))}" download="Yuliia-Chepizhna-CV.pdf" target="_blank" rel="noopener">${I.down}${esc(t.nav.cv)}</a>`;
     return `<header class="top"><div class="wrap">
       <a class="logo" href="#">Yuliia C.</a>
-      <nav aria-label="Main"><a href="#work">${t.nav.work}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a></nav>
+      <nav aria-label="Main"><a href="#work">${t.nav.work}</a><a href="#ai">${t.nav.ai}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a></nav>
       <button class="ctrl" data-snd aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}</button>
       <button class="ctrl" id="lang" aria-label="Language">${t.nav.lang}</button>
       <button class="ctrl" id="theme" aria-label="${t.nav.theme}">${dark ? I.sun : I.moon}</button>
       ${cv}
       <button class="ctrl burger" id="burger" aria-label="${t.nav.menu}" aria-expanded="false" aria-controls="menu">${I.burger}</button>
     </div></header>
-    <div class="menu-panel" id="menu" hidden><a href="#work">${t.nav.work}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a><button class="ctrl snd-m" data-snd data-label="${esc(t.nav.sound)}" aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}<span>${esc(t.nav.sound)}</span></button>${cv}</div>`;
+    <div class="menu-panel" id="menu" hidden><a href="#work">${t.nav.work}</a><a href="#ai">${t.nav.ai}</a><a href="#about">${t.nav.about}</a><a href="#contact">${t.nav.contact}</a><button class="ctrl snd-m" data-snd data-label="${esc(t.nav.sound)}" aria-label="${t.nav.sound}" aria-pressed="${!muted}">${muted ? I.mute : I.sound}<span>${esc(t.nav.sound)}</span></button>${cv}</div>`;
   }
 
   function deck(t, kind) {
@@ -168,6 +168,16 @@
         <button class="key" data-k="eject" type="button" disabled aria-label="${esc(d.eject)}">${I.eject}</button>
       </div>
     </div>`;
+  }
+
+  /* ---------- секція «Що я роблю з AI» ---------- */
+  function aiCase(c, L) {
+    const row = (key, cls) => `<div class="ai-row ${cls}"><h4>${esc(L[key])}</h4><ul>${c[key].map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    return `<article class="ai-case">
+      <div class="ai-head"><span class="badge ai-badge">${esc(c.tab)}</span><h3>${esc(c.title)}</h3><p class="ai-lead">${esc(c.lead)}</p>
+        <ul class="ai-tools">${c.tools.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="ai-rows">${row("did", "c1")}${row("delegated", "c2")}${row("verified", "c3")}${row("redone", "c4")}</div>
+    </article>`;
   }
 
   /* ---------- блоки B2B-кейсів у «Ще з мого столу» ---------- */
@@ -211,6 +221,17 @@
       <div class="sec-head"><div><h2>${esc(t.work.title)}</h2><p class="period">${esc(t.work.period)}</p></div><span class="hand">${esc(t.work.note)}</span></div>
       <div class="cases-layout" data-layout><div class="deck-col">${deck(t, "home")}</div><div class="tapes">${CASES.map((id) => tapeCard(id, t)).join("")}</div></div>
     </div></section>
+
+    <section class="section" id="ai"><div class="wrap"><div class="ai-panel">
+      <div class="sec-head"><h2>${esc(t.ai.title)}</h2><span class="hand">${esc(t.ai.note)}</span></div>
+      <p class="ai-intro">${esc(t.ai.intro)}</p>
+      <div class="slider ai-slider" data-slider role="region" aria-roledescription="carousel" aria-label="${esc(t.ai.title)}">
+        <div class="slider-track" tabindex="0">${t.ai.cases.map((c) => aiCase(c, t.ai.labels)).join("")}</div>
+        <div class="slider-ui"><button class="key slide-btn" type="button" data-sprev aria-label="Previous">${I.prev}</button><div class="slider-dots" role="group" aria-label="Slides"></div><button class="key slide-btn" type="button" data-snext aria-label="Next">${I.next}</button></div>
+      </div>
+      <div class="ai-rules"><h3>${esc(t.ai.rulesTitle)}</h3><ul>${t.ai.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ul></div>
+      <p class="hand ai-more">${esc(t.ai.more)}</p>
+    </div></div></section>
 
     <section class="section" id="more"><div class="wrap">
       <div class="sec-head"><h2>${esc(m.title)}</h2><span class="hand">${esc(m.note)}</span></div>
